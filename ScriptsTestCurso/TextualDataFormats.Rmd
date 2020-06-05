@@ -1,0 +1,50 @@
+---
+title: "Textual Data Formats"
+author: "DCC"
+date: "5/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# TEXTUAL DATA FORMATS
+
+***
+* *dumping dputing* Exports or imports data and metadata
+
+* *Textual* not very space-efficient, good for version control. Unix philosophy.
+
+***
+
+## dput / dget
+
+Importing exporting R objects (almost every object) 
+
+```{r dput}
+y <- data.frame(a=1, b="a")
+dput(y)
+```
+dput to a file and dget to load it back
+```{r dputdget}
+dput(y,file = "y.R")
+new.y <- dget("y.R")
+new.y
+```
+
+## dump
+
+Deparse multiple objects and read back with *source*
+
+```{r dump}
+x <- "foo"
+y <- data.frame(a = 1, b = "a")
+dump(c("x","y"), file ="data.R")
+rm(x,y)
+source("data.R")
+y
+x
+```
+
+
