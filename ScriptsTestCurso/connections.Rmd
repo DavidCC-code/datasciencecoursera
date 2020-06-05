@@ -1,0 +1,63 @@
+---
+title: "Connections"
+author: "DCC"
+date: "5/6/2020"
+output: html_document
+---
+
+# CONNECTIONS
+
+* *file*, connection to a file
+* *gzfile*, connection to a gzip file
+* *bzfile*, bzip2
+* *url*, connection to webpage
+
+## File Connections
+
+```{r file}
+str(file)
+```
+
+* *description*, name of the file
+* *open*, indicate mode
+  + *"r"* read only
+  + *"w"* write, new file
+  + *"a"*, append
+  + *"rb"*, *"wb"*, *"ab"* reading, writing, or appending in binary mode "windows"
+  
+## *con*
+
+```{r con file}
+con <- file("../datos/oleajePuertos.csv", "r")
+data <- read.csv(con)
+close(con)
+data
+```
+
+also:
+
+``` {r read csv} 
+data <- read.csv("../datos/oleajePuertos.csv", sep = ";")
+data
+```
+
+##Reading Lines of a text file
+
+using *con* to read n lines from a compressed file
+
+```{r con gzip}
+con <- gzfile("../datos/01001bsc.csv.gz")
+x <- readLines(con, 10)
+x
+```
+
+### read lines from webpage
+
+```{r read webpage}
+## this might take some time
+con <- url("http://www.ororo.tv", "r")
+x <- readLines(con)
+head(x)
+```
+
+

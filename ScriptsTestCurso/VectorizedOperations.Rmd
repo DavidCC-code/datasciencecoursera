@@ -1,0 +1,31 @@
+---
+title: "Vectorized Operations"
+author: "DCC"
+date: "5/6/2020"
+output: html_document
+---
+
+# VECTORIZED OPERATIONS
+
+Allow operations with whole vectors making code more efficient, saving loops and complex code structrures
+
+``` {r}
+x <- 1:4; y <- 6:9
+x + y
+x > 2
+x >= 2
+y == 8
+x * y
+x / y
+```
+
+You can also operate with matrices
+
+``` {r}
+x <- matrix(1:4,2,2); y <- matrix(rep(10,4),2,2)
+x * y ## elelment-wise multiplication
+x / y
+x
+y
+x %*% y ## matrix multiplication
+```
