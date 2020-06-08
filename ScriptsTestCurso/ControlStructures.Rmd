@@ -1,0 +1,80 @@
+---
+title: "Control Structures"
+author: "DC"
+date: "8/6/2020"
+output: html_document
+---
+
+# CONTROL STRUCTURES
+
+##   *if - else*
+
+
+if (condition){
+  ## some code
+} else {
+  ## some more
+}
+
+if (condition) {
+  
+} else if (condition 2){
+  
+  
+}  else {
+    
+ }
+
+
+Special R if-else construction:
+
+``` {r}
+x <- 6
+y <- if (x >3) {
+  10
+}else  {
+  0
+}
+```
+
+
+## *For loops*
+
+
+```{r 4 loops}
+x <- c("a", "b", "c", "d")
+
+for (i in 1:4) {
+   print(x[i])
+}
+
+for (i in seq_along(x)) { ## creates integer sequence equal to the length                            ## of x (4)
+  print(x[i])
+}
+
+for (letter in x) {
+  print(letter) 
+}
+
+for (i in 1:4) print (x[i])
+```
+
+
+## Nested for loops
+
+``` {r nested loops}
+x <- matrix(1:6,2,3)
+
+for (i in seq_len(nrow(x))) {
+    for (j in seq_len(ncol(x))) {
+        print(x[i, j])
+    }
+  
+}
+```
+
+## While loops
+
+
+
+
