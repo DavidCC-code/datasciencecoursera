@@ -1,0 +1,82 @@
+---
+title: "Functions"
+author: "DC"
+date: "9/6/2020"
+output: html_document
+---
+
+#  FUNCTIONS
+
+Functios in R are objects of the class "function" and ar created with *function()* directive
+
+That means that they can be treated as any other R objects.
+
+* Functions can be passed as arguments to other funcitons
+* Functions can be nested. Define one function inside another.
+
+
+``` {r}
+f <- function( arguments) {
+  ## actions
+}
+```
+
+Fuctions return the value of the last expression evaluated, there's no need of a return statment, tot i que existeix una funció return()
+
+## Function arguments
+Named arguments can have default values
+
+* Fromal arguments, those included in definition
+* *formals* function returns a list of the formal arguments of a function
+* Not every function cal in R makes use of all formal arguments
+* Function arguments can be missing or might have default values
+
+## Argument Matching
+
+Can be matchet by position or by name.
+
+```{r equivalent expression }
+mydata <- rnorm(100)
+sd(mydata)
+sd ( x = mydata)
+sd(x = mydata, na.rm = FALSE)
+sd(na.rm = FALSE, x = mydata)
+sd(na.rm = FALSE, mydata)
+```
+
+Position and name matching can be mixed.
+
+```{r args}
+args(lm)
+```
+
+
+*lm(data = mydata, y - x, model = FALSE, 1:100)*
+*lm(y - x, mydata, 1:100, model = FALSE)*
+
+You can also partially match the name of the argument. Mostly for interactive work in console, not for programing
+
+The order is exact match -> partial match -> positional
+
+## The "..." Argument
+
+``` {r }
+args(paste)
+args(cat)
+```
+
+ ... the number or arguments passed to the function cannot be known in advance.
+ 
+## Arguments after the "..." argument
+
+Arguments after ... on the argument list must be named explicitly and cannot be partially matched.
+
+``` {r}
+args(paste)
+paste("a","b", sep = ":")
+paste("a","b", se = ":")  ## "se"  does not partially match to sep
+```
+
+
+
+
