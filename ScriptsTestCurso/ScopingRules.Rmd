@@ -1,0 +1,162 @@
+---
+title: "SCOPING RULES"
+output: html_notebook
+---
+
+
+## Symbol Binding
+
+```{r}
+search()
+```
+
+*search()* displays the search list R would use to bind a value to a symbol.
+
+It is possible to overwrite a existing function within the immediate enviroment. Consists in all the R packages loaded into R ( your workspace).
+
+* __*Global environment*__ , is the user's workspace, is __always the first element__ of the search list and __*base*__ package is __always__ the __last__
+* The __order__ of packages on the search list __matters__.
+* Packages loaded on startup can be configurated.
+* Loading a __package__ through __*library* sets its namespace in position 2__ of the search list.
+* R has separate namespaces for functions and non-funcions, __it's possible__ to have an __object and a function with the same name__.
+
+
+## Scoping Rules
+
+* __Scoping rules__ determine how a value is associeted with a free varialbe in a function
+* __Lexical or static scoping__
+* Lexical scopint applies perticularly well to __statistical computations simplification__
+
+
+In the next function scope rules determine the value to be assingned to "z" _free variable_
+```{r} 
+f <- function (x, y) {
+   x^2 + y / z
+}
+```
+
+
+### Lexical Scoping
+
+_the values of free variables are searched for in the __environment__ in which the function was defined._
+
+* ___environment___, a collenction of (symbol, value) pairs
+* Every enviroment has a parent evironment; and could have 0 or many children
+* The only environment without a parent is the empty environment
+* A function + an environment is a __closure__ or __function closure__
+
+ Search order:
+  1. Environment in which the function was created
+  2. Parent environment
+  3. Starts going down the search list ( global env, tools:rstudio, package:...)
+  4. Reach __empty environment__ without matching then error is thrown
+
+
+* Typically, a function is defined in a global enviroment, so the values of free variables are just found in the user's workspace
+* In R is __possible to define functions inside other functions__, and that function can be returned from the function where it was defined, so that function's __enviroment would be the insides of the other function__
+ (usually called constructor function)
+ 
+ 
+Constructor function example:
+
+``` {r}
+make.power <- function(n){  ##constructor function power
+      pow <- function(x) {
+         x^n
+      } 
+      pow
+}
+
+cube <- make.power(3)   ##construction of function cube
+square <-make.power(2)  ##construction of function square
+cube(3)
+square(3)
+```
+
+
+  _environment_ function, allows to see what's in the environment of a function.
+  
+```{r environment and get}
+ls(environment(cube))
+get("n",environment(cube))
+
+ls(environment(square))
+get("n",environment(square))
+```
+
+
+##  Lexical vs. Dynamic Scoping
+
+Dynamic scoping is common in most programming languages as C
+
+``` {r}
+y <- 10
+
+f <- function(x) {
+    y <- 2
+    y^2 + g(x)
+}
+
+g <- function(x) {
+    x*y
+  
+}
+
+f(3)
+```
+
+* Lexical scoping looks up for the value of _y_ in the function _g_ in the __environment in which the function was defined__, in this case the global environment, the value is _10_
+
+* Dynamic scoping, looks up for the value of _y_ in the __environment from which the function was called__ (_calling environment_), it woud be 2
+
+* If function is defined in the global environment and called from teh global environment, __the defining and the calling environment coud be the same__
+
+* Other lenguages with lexical scoping are:
+    + Scheme
+    + Perl
+    · Python
+    + Common Lisp (all languages converge to Lisp)
+    
+    
+## Optimization Example
+
+   _optim_, _nlm_, _optimize_
+   
+### Maximizing a Normal Likelyhood
+
+``` {r}
+make.NegLogLik <- function(data, fixed=c(FALSE,FALSE)){
+    params <- fixed
+    function(p) {
+       params[!fixed] <- p
+       mu <- params[1]
+       sigma <- params[2]
+       a <- -0.5*length(data) * log (2*pi*sigma^2)
+       b <- -0.5*sum((data-mu)^2) / (sigma^2)
+       -(a + b)
+    }
+
+}
+  
+set.seed(1); normals <- rnorm(100, 1, 2)
+nLL <- make.NegLogLik(normals)
+nLL
+ls(environment(nLL))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
