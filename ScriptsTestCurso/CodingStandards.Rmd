@@ -1,0 +1,10 @@
+---
+title: "CODING STANDADRS"
+output: html_notebook
+---
+
+
+1. Text file
+2. Indenting
+3. Limit the width of lines (80 columns?)
+

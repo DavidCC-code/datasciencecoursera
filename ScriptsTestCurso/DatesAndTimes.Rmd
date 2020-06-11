@@ -1,0 +1,56 @@
+---
+title: "DATAE AND TIMES"
+output: html_notebook
+---
+
+
+* Dates are represented by the _Date_ class
+* Times ar represnted by the _POSIXct_ or or th _POSIXlt_ class
+* Dates ar stored internally as the __number of days since 01/01/1970__
+* And times as the __number of seconds__ since the same date
+
+
+## Dates in R
+
+``` {r}
+x <- as.Date("1970-01-01")
+x
+unclass(x)   ## 0 days from 1970-01-01
+x <- as.Date("1970-01-02")
+unclass(x)   ## 1 days from 1970-01-01
+```
+
+
+## Times in R
+
+### _POSIXct_ , _POSIXlt_
+
+*___POSIXct___ a very large integer, it use a useful class whe you want store times in a data frame
+* ___POSIXlt___  its a list that stores other useful information like the day of the week, day of the year, month, day of the month
+
+
+There's some generic functions that w9ork on dates an times : _weekdays_, _months_, _quarters_...  Those functions operate on objects of class _POSIXct_, _POSIClt_ or _Date_
+
+```{r}
+weekdays(x)
+months(x)
+quarters(x)
+```
+
+Times can be coerced from a character string uising the as.POSIXlt or as.POSIXct function.
+
+```{r}
+x <- Sys.time()
+x
+p <- as.POSIXlt(x)
+names(unclass(p))
+p$sec
+```
+
+_POSICXct_ does not allow to extract elements because is not a list, but can be coercet to _POSICXlt_ as above.
+
+
+
+
+
+
