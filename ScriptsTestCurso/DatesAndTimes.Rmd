@@ -49,7 +49,36 @@ p$sec
 
 _POSICXct_ does not allow to extract elements because is not a list, but can be coercet to _POSICXlt_ as above.
 
+### __strptime__
 
+Function to convert dates written in a different format to time objects
+
+```{r }
+datestring <- c("Gener 10, 2012 10:40", "Desembre 9, 2001 9:10")
+x <- strptime(datestring, "%B %d, %Y %H:%M")   ## %B expects month in current locale
+x
+class(x)
+```
+
+Once dates are in a date class it is possible to operate with them and do comparisons. But they need to be of the same class _date_ or _POSIXt / POSIXlt._
+
+```{r}
+x <- as.Date("2012-01-01")
+y <- strptime  ("9 Gener 2011 11:34:21", "%d %B %Y %H:%M:%S")
+
+x <- as.POSIXlt(x)
+x-y
+```
+
+Date and POSIX classes take care of calculation identifiny trespass years and converting diferent time zones, example below
+
+``` {r}
+x <- as.Date("2012-03-01"); y <- as.Date("2012-02-28")
+x-y
+x <- as.POSIXlt("2012-10-25 01:00:00")
+y <- as.POSIXlt("2012-10-25 06:00:00", tz = "GMT")
+y-x
+```
 
 
 
