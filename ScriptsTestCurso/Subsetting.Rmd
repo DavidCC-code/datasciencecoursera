@@ -98,7 +98,7 @@ x[["a"]]   ## does not allows partial matching by default
 x[["a", exact = FALSE]]
 ```
 
-## Subseting  - Removin NA values
+## Subseting  - Removing NA values
 
 ```{r}
 x <- c(1,2,NA,4,NA,5)
@@ -125,5 +125,65 @@ df <- data.frame(name = c("Jon", "Bill", "Maria",NA, "Foo", "Bar","Norf"),
 df
 good <- complete.cases(df)
 df[good,]
+´´´
 
+# Subseting from data.frame
+``` {r}
+set.seed(13435)
+X <- data.frame("var1"=sample(1:5),"var2"=sample(6:10),"var3"=sample(11:15))
+X <- X[sample(1:5),]; X$var2[c(1,3)]=NA
+X
+´´´
+
+##  column
+``` {r}
+ X[,1]
+ X[,"var1"]
+´´´
+## rows and columns
+``` {r from column "var2" rows 1 to 2}
+X[1:2,"var2"]
+´´´
+##  with logical expressions
+``` {r all colums ",]" and only rows that meet the expression}
+ X[(X$var1 <= 3 & X$var3 > 11),]
+ ´´´ 
+ ``` {r all colums ",]" and only rows that meet the expression}
+ X[(X$var1 <= 3 | X$var3 > 15),]
+´´´
+## NA values - which
+´´´{r this returns the rows that meet the condition and a row of NA for each NA value evaluated in the expression}
+X[(X$var2 > 8),]
+´´´
+
+´´´{r this returns only the rows that meet the condition}
+X[which(X$var2 > 8),]
+´´´
+# SORTING
+´´´{r}
+sort(X$var1)
+sort(X$var1,decreasing=TRUE)
+sort(X$var1,na.last=TRUE) #missing values at the end
+´´´
+#ORDERING
+´´´{r order by the specified variables}
+X[order(X$var1),]
+X[order(X$var1,X$var3),]
+´´´
+
+## with plyr package
+´´´{r}
+library(plyr)
+arrange(X,var1) # orders X dataframe by var1
+arrange(X,desc(var1))
+´´´
+# Adding rows and columns
+´´´{r adds var4 column}
+X$var4 <- rnorm(5)
+X
+´´´
+## adding using cbind
+´´´{r}
+Y <- cbind(X,rnorm(5))
+´´´
 
