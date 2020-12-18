@@ -1,0 +1,50 @@
+---
+title: "Untitled"
+author: "David Contreras Carretero"
+date: "17/12/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+You work for Motor Trend, a magazine about the automobile industry. Looking at a data set of a collection of cars, they are interested in exploring the relationship between a set of variables and miles per gallon (MPG) (outcome). They are particularly interested in the following two questions:
+
+“Is an automatic or manual transmission better for MPG”
+"Quantify the MPG difference between automatic and manual transmissions"
+
+### Excecutive Summary
+
+### Exploratory Analysis
+
+
+```{r cars}
+head(mtcars)
+mtcars$am <- factor(mtcars$am,labels=c('Automatic','Manual'))
+```
+
+
+The boxplot shows how 
+
+### Is an automatic or manual transmission better for MPG?
+
+
+Observing the box plot (fig. 1 Appendix 1) we it seems that in mort that 75% of the cases automatic vehicles are less efficient than those with manual transmission.
+
+
+
+### Appendix 1
+
+
+
+```{r }
+boxplot(mpg~am, data = mtcars,
+        xlab = "Transmission (Automatic/Manual)",
+        ylab = "Miles per Gallon",
+        main = "Miles per galon by transmission type")
+mtext("Figure 1",side=1,line=4)
+```
+
